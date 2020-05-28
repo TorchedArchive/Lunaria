@@ -1,0 +1,23 @@
+{
+  "name": "kannashell",
+  "version": "0.0.1",
+  "description": "A small, light terminal shell for Windows.",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Terminalfreaks/Kanna.git"
+  },
+  "keywords": [
+    "shell",
+    "terminal"
+  ],
+  "author": "Terminalfreaks",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Terminalfreaks/Kanna/issues"
+  },
+  "homepage": "https://github.com/Terminalfreaks/Kanna#readme"
+}

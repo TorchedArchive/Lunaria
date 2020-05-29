@@ -17,14 +17,22 @@
 */
 
 const { execSync } = require("child_process")
+const fs = require("fs")
+const commands = []
 
+fs.readdirSync(__dirname + "/../commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
 process.stdout.write("-> ");
-
 process.stdin.on('data', d => {
+	const argv = d.toString().trim().split(" ")
 	try {
-		process.stdout.write(execSync(d.toString()))
-		process.stdout.write("\n-> ");
+		if(commands.includes(argv[0])) {
+			require(`../commands/${argv[0]}.js`).run(argv)
+			process.stdout.write("\n-> ")
+		} else {
+			process.stdout.write(execSync(argv.join(" ")))
+			process.stdout.write("\n-> ");
+		}
 	} catch(err) {
-		process.stdout.write("\n-> ");
+		process.stdout.write("\n[E] -> ");
 	}
 });

@@ -13,18 +13,21 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const config = require("../config.json")
 const os = require("os")
 const chalk = require("chalk")
+const config = require("../config.json")
+const Path = require("./Path.js")
 
 class KannaUtils {
   static getPrompt() {
     const vals = {
-      "%username%": os.userInfo().username
+      "%username%": os.userInfo().username,
+      "%hostname%": os.hostname(),
+      "%cwf%": Path.handle(process.cwd()).split("\\").join("\\\\")
     }
     let str = config.prompt
     for(let key in vals) {
-        str = str.replace(new RegExp(key, "g"), vals[key])
+        str = str.replace(key, vals[key])
     }
     return eval('chalk`'+str+'`')
   }

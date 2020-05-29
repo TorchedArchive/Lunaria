@@ -18,22 +18,23 @@
 
 const { execSync } = require("child_process")
 const fs = require("fs")
+const utils = require("../src/utils.js")
 const commands = []
 
 fs.readdirSync(__dirname + "/../commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
-process.stdout.write("-> ");
+process.stdout.write(`${utils.getPrompt()}`)
 process.stdin.on('data', d => {
 	const argv = d.toString().trim().split(" ")
 	try {
 		if(commands.includes(argv[0])) {
 			require(`../commands/${argv[0]}.js`).run(argv)
-			process.stdout.write("\n-> ")
+			process.stdout.write(`\n${utils.getPrompt()}`)
 		} else {
-			execSync(argv.join(" "), {stdio : "inherit"})
-			process.stdout.write("\n-> ");
+			execSync(argv.join(" "), {stdio: "inherit"})
+			process.stdout.write(`\n${utils.getPrompt()}`)
 		}
 	} catch(err) {
 		console.log(err)
-		process.stdout.write("\n[E] -> ");
+			process.stdout.write(`\n[E] ${utils.getPrompt()}`)
 	}
 });

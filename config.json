@@ -1,0 +1,7 @@
+/*
+	This will go in the home directory of the user.
+*/
+
+{
+	"prompt": "→ {username} λ "
+}

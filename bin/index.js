@@ -15,8 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+process.stdout.write("-> ");
 
-process.stdin.on("data", (data) => {
-    console.log(data.toString())
-    console.log("-> sammy@animestation")
-})
+process.stdin.on('data', d => {
+  process.stdout.write(`${d.toString()}\n`);
+  process.stdout.write("-> ");
+});

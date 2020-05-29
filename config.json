@@ -1,5 +1,6 @@
 /*
 	This will go in the home directory of the user.
+	Also remove this or it wont parse.
 */
 
 {

@@ -27,7 +27,7 @@ class KannaUtils {
     }
     let str = config.prompt
     for(let key in vals) {
-        str = str.replace(key, vals[key])
+        str = str.replace(new RegExp(key, "g"), vals[key])
     }
     return eval('chalk`'+str+'`')
   }

@@ -1,6 +1,6 @@
 {
   "name": "kannashell",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "A small, light terminal shell for Windows.",
   "main": "bin/index.js",
   "scripts": {
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/Terminalfreaks/Kanna/issues"
   },
-  "homepage": "https://github.com/Terminalfreaks/Kanna#readme"
+  "homepage": "https://github.com/Terminalfreaks/Kanna#readme",
+  "dependencies": {
+    "chalk": "^4.0.0"
+  }
 }

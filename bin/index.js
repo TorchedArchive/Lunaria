@@ -29,10 +29,11 @@ process.stdin.on('data', d => {
 			require(`../commands/${argv[0]}.js`).run(argv)
 			process.stdout.write("\n-> ")
 		} else {
-			process.stdout.write(execSync(argv.join(" "), {stdio : "inherit"}))
+			execSync(argv.join(" "), {stdio : "inherit"})
 			process.stdout.write("\n-> ");
 		}
 	} catch(err) {
+		console.log(err)
 		process.stdout.write("\n[E] -> ");
 	}
 });

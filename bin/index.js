@@ -29,7 +29,7 @@ process.stdin.on('data', d => {
 			require(`../commands/${argv[0]}.js`).run(argv)
 			process.stdout.write("\n-> ")
 		} else {
-			process.stdout.write(execSync(argv.join(" ")))
+			process.stdout.write(execSync(argv.join(" "), {stdio : "inherit"}))
 			process.stdout.write("\n-> ");
 		}
 	} catch(err) {

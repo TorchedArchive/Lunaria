@@ -17,24 +17,40 @@
 */
 
 const { execSync } = require("child_process")
+const readline = require("readline")
 const fs = require("fs")
 const utils = require("../src/utils.js")
-const commands = []
+let commands = []
 
+// Put available commands in an array.
 fs.readdirSync(__dirname + "/../commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
-process.stdout.write(`${utils.getPrompt()}`)
-process.stdin.on('data', d => {
-	const argv = d.toString().trim().split(" ")
-	try {
-		if(commands.includes(argv[0])) {
-			require(`../commands/${argv[0]}.js`).run(argv)
-			process.stdout.write(`\n${utils.getPrompt()}`)
-		} else {
-			execSync(argv.join(" "), {stdio: "inherit"})
-			process.stdout.write(`\n${utils.getPrompt()}`)
+const ci = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+// Function to draw the prompt
+prompt = () => {
+	ci.setPrompt(utils.getPrompt())
+	ci.prompt()
+}
+
+// Runs a command when Enter/Return is pressed.
+ci.on("line", (input) => {
+	const argv = input.split(" ")
+	if(!commands.includes(argv[0])) {
+		try {
+			execSync(input, {
+				stdio: "inherit"
+			})
+		} catch(err) {
+			console.log(err.message)
 		}
-	} catch(err) {
-		console.log(err)
-			process.stdout.write(`\n[E] ${utils.getPrompt()}`)
+	} else {
+		require(`../commands/${argv[0]}.js`).run(argv)
 	}
-});
+	prompt()
+})
+
+// Draw the prompt initially.
+prompt()

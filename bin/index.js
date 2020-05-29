@@ -15,9 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+const { execSync } = require("child_process")
+
 process.stdout.write("-> ");
 
 process.stdin.on('data', d => {
-  process.stdout.write(`${d.toString()}\n`);
-  process.stdout.write("-> ");
+	try {
+		process.stdout.write(execSync(d.toString()))
+		process.stdout.write("\n-> ");
+	} catch(err) {
+		process.stdout.write("\n-> ");
+	}
 });

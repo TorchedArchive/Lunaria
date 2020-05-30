@@ -1,3 +1,3 @@
 {
-	"prompt": "→ {bold.green %username%@%hostname%} {bold.blue %cwf% λ} "
+	"prompt": "{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwf% λ{reset}{bold} "
 }

@@ -14,8 +14,8 @@
 */
 
 const os = require("os")
-const chalk = require("chalk")
 const config = require("../config.json")
+const { colorMap } = require("./colorMap.json")
 const Path = require("./Path.js")
 
 class KannaUtils {
@@ -23,13 +23,15 @@ class KannaUtils {
     const vals = {
       "%username%": os.userInfo().username,
       "%hostname%": os.hostname(),
-      "%cwf%": Path.handle(process.cwd()).split("\\").join("\\\\")
+      "%cwd%": Path.handle(process.cwd()),
+      "%cwf%": Path.handle(process.cwd()).split("\\")[Path.handle(process.cwd()).split("\\").length - 1],
+      ...colorMap
     }
     let str = config.prompt
     for(let key in vals) {
-        str = str.replace(key, vals[key])
+        str = str.replace(new RegExp(key, "g"), vals[key])
     }
-    return eval('chalk`'+str+'`')
+    return str
   }
 }
 

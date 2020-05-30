@@ -20,13 +20,31 @@ const { execSync } = require("child_process")
 const readline = require("readline")
 const fs = require("fs")
 const utils = require("../src/utils.js")
+const Path = require("../src/Path.js")
 let commands = []
 
 // Put available commands in an array.
 fs.readdirSync(__dirname + "/commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
+
+completer = (line) => {
+	if(!line.includes("cd")) return;
+	line = line.slice(3)
+	const currAddedDir = (line.indexOf('\\') != - 1) ? line.substring(0, line.lastIndexOf('\\') + 1) : '';
+	const currAddingDir = line.substr(line.lastIndexOf('\\') + 1);
+	const path = process.cwd() + '\\' + currAddedDir;
+	const completions = fs.readdirSync(path, { withFileTypes: true }).filter(p => p.isDirectory()).map(d => d.name)
+	const hits = completions.filter(function(c) { return c.indexOf(currAddingDir) === 0});
+
+	let strike = [];
+	if (hits.length === 1) strike.push(currAddedDir + hits[0] + '\\');
+
+	return (strike.length) ? [strike, line] : [hits.length ? hits : completions, line];
+}
+
 const ci = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
+  completer: completer
 })
 
 // Function to draw the prompt
@@ -52,5 +70,10 @@ ci.on("line", (input) => {
 	prompt()
 })
 
-// Draw the prompt initially.
+// Shows the MOTD and draws the prompt initially.
+utils.displayMOTD()
 prompt()
+
+ci.on('SIGINT', () => {
+  return;
+});

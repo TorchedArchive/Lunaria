@@ -33,6 +33,23 @@ class KannaUtils {
     }
     return str
   }
+
+  static displayMOTD() {
+    let motd = config.motd
+    if(!motd || motd === "") return;
+    const vals = {
+      "%username%": os.userInfo().username,
+      "%hostname%": os.hostname(),
+      "%cwd%": Path.handle(process.cwd()),
+      "%cwf%": Path.handle(process.cwd()).split("\\")[Path.handle(process.cwd()).split("\\").length - 1],
+      "%ver%": require("../package.json").version,
+      ...colorMap
+    }
+    for(let key in vals) {
+        motd = motd.replace(new RegExp(key, "g"), vals[key])
+    }
+    return console.log(motd + colorMap["{reset}"])
+  }
 }
 
 module.exports = KannaUtils;

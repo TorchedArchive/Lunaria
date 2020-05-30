@@ -1,6 +1,6 @@
 {
   "name": "kannashell",
-  "version": "0.0.14",
+  "version": "0.0.18",
   "description": "A small, light terminal shell for Windows.",
   "main": "bin/index.js",
   "scripts": {

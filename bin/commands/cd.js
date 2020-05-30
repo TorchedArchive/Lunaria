@@ -1,5 +1,5 @@
 const fs = require("fs")
-const Path = require("../src/Path.js")
+const Path = require("../../src/Path.js")
 
 exports.run = (args) => {
 	if(!args[1]) return;

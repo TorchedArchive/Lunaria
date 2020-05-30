@@ -23,7 +23,7 @@ const utils = require("../src/utils.js")
 let commands = []
 
 // Put available commands in an array.
-fs.readdirSync(__dirname + "/../commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
+fs.readdirSync(__dirname + "/commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
 const ci = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -47,7 +47,7 @@ ci.on("line", (input) => {
 			console.log(err.message)
 		}
 	} else {
-		require(`../commands/${argv[0]}.js`).run(argv)
+		require(`./commands/${argv[0]}.js`).run(argv)
 	}
 	prompt()
 })

@@ -3,8 +3,9 @@ const Path = require("../../src/Path.js")
 
 exports.run = (args) => {
 	if(!args[1]) return;
-	if(fs.existsSync(Path.reverseHandle(args[1]))) {
-		process.chdir(Path.reverseHandle(args[1]))
+	const dir = args.slice(1).join(" ")
+	if(fs.existsSync(Path.reverseHandle(dir))) {
+		process.chdir(Path.reverseHandle(dir))
 	} else {
 		process.stdout.write("That directory does not exist.\n")
 	}

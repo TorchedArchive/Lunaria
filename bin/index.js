@@ -23,6 +23,13 @@ const utils = require("../src/utils.js")
 const Path = require("../src/Path.js")
 let commands = []
 
+const baseConfig = {
+	prompt: "{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwd% λ{reset}{bold} ",
+	motd: "{bold}Welcome {cyan}%username%{reset}{bold} to {cyan}KannaShell v%ver%!\n",
+	askOnExit: true
+}
+if(!utils.config()) fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannashell\\config.json`, JSON.stringify(baseConfig))
+
 // Put available commands in an array.
 fs.readdirSync(__dirname + "/commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
 
@@ -31,7 +38,7 @@ completer = (line) => {
 	line = line.slice(3)
 	const currAddedDir = (line.indexOf('\\') != - 1) ? line.substring(0, line.lastIndexOf('\\') + 1) : '';
 	const currAddingDir = line.substr(line.lastIndexOf('\\') + 1);
-	const path = process.cwd() + '\\' + currAddedDir;
+	const path = `${line.match(/^(~|\/)/) ? Path.reverseHandle(line.split("\\")[0]) : process.cwd()}\\${line.match(/^(~|\/)/) ? currAddedDir.slice(1) : currAddedDir}`;
 	const completions = fs.readdirSync(path, { withFileTypes: true }).filter(p => p.isDirectory()).map(d => d.name)
 	const hits = completions.filter(function(c) { return c.indexOf(currAddingDir) === 0});
 
@@ -75,5 +82,16 @@ utils.displayMOTD()
 prompt()
 
 ci.on('SIGINT', () => {
-  return;
+	if(!config.askOnExit) {
+		ci.close()
+	} else {
+		ci.question("Are you sure that you want to exit?", (ans) => {
+			if(ans.match(/^y(es)?$/i)) ci.close()
+		})
+	}
+});
+
+ci.on('close', () => {
+	console.log("\nGoodbye!")
+	process.exit(0)
 });

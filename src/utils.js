@@ -14,7 +14,6 @@
 */
 
 const os = require("os")
-const config = require("../config.json")
 const { colorMap } = require("./colorMap.json")
 const Path = require("./Path.js")
 
@@ -27,7 +26,7 @@ class KannaUtils {
       "%cwf%": Path.handle(process.cwd()).split("\\")[Path.handle(process.cwd()).split("\\").length - 1],
       ...colorMap
     }
-    let str = config.prompt
+    let str = this.config().prompt
     for(let key in vals) {
         str = str.replace(new RegExp(key, "g"), vals[key])
     }
@@ -35,7 +34,7 @@ class KannaUtils {
   }
 
   static displayMOTD() {
-    let motd = config.motd
+    let motd = this.config().motd
     if(!motd || motd === "") return;
     const vals = {
       "%username%": os.userInfo().username,
@@ -49,6 +48,14 @@ class KannaUtils {
         motd = motd.replace(new RegExp(key, "g"), vals[key])
     }
     return console.log(motd + colorMap["{reset}"])
+  }
+
+  static config() {
+  	if(require("fs").existsSync(`${os.userInfo().homedir}\\.kannashell\\config.json`)) {
+  		return JSON.parse(require("fs").readFileSync(`${os.userInfo().homedir}\\.kannashell\\config.json`))
+  	} else {
+  		return false;
+  	}
   }
 }
 

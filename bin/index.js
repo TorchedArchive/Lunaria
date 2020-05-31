@@ -28,7 +28,7 @@ const baseConfig = {
 	motd: "{bold}Welcome {cyan}%username%{reset}{bold} to {cyan}KannaShell v%ver%!\n",
 	askOnExit: true
 }
-if(!utils.config()) fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannashell\\config.json`, JSON.stringify(baseConfig))
+if(!utils.config()) fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannaconf.json`, JSON.stringify(baseConfig, null, 4))
 
 // Put available commands in an array.
 fs.readdirSync(__dirname + "/commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
@@ -82,16 +82,18 @@ utils.displayMOTD()
 prompt()
 
 ci.on('SIGINT', () => {
-	if(!config.askOnExit) {
+	if(!utils.config().askOnExit) {
 		ci.close()
 	} else {
-		ci.question("Are you sure that you want to exit?", (ans) => {
-			if(ans.match(/^y(es)?$/i)) ci.close()
+		console.log("")
+		ci.question("Are you sure that you want to exit? ", (ans) => {
+			if(ans.match(/^y(es)?$/i)) return ci.close()
+			prompt()
 		})
 	}
 });
 
 ci.on('close', () => {
-	console.log("\nGoodbye!")
+	console.log("Goodbye!")
 	process.exit(0)
 });

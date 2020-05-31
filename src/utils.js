@@ -14,6 +14,7 @@
 */
 
 const os = require("os")
+const fs = require("fs")
 const { colorMap } = require("./colorMap.json")
 const Path = require("./Path.js")
 
@@ -51,11 +52,11 @@ class KannaUtils {
   }
 
   static config() {
-  	if(require("fs").existsSync(`${os.userInfo().homedir}\\.kannashell\\config.json`)) {
-  		return JSON.parse(require("fs").readFileSync(`${os.userInfo().homedir}\\.kannashell\\config.json`))
-  	} else {
-  		return false;
-  	}
+    if(require("fs").existsSync(`${os.userInfo().homedir}\\.kannaconf.json`)) {
+      return JSON.parse(require("fs").readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
+    } else {
+      return false;
+    }
   }
 }
 

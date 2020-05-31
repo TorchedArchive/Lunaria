@@ -10,3 +10,39 @@ It is still being developed but is currently very usable (if you don't mind miss
 # Screenshot
 Here is me using Kanna while developing it.
 ![Preview](https://cdn.discordapp.com/attachments/713499232803225662/716259579327152148/kannashellusage.png)
+
+# Documentation
+Kanna will (and currently has) a wide range of things you can customize and other things.
+
+## Config
+A default `config.json` file is provided with default values. You can of course change this to your liking.  
+  
+`askOnExit` - Whether to ask for confirmation to exit with ctrl+c (Default: true)
+### Colors
+Colors are available for the `prompt` and `motd`. There are also other formatting options.
+```
+{reset}
+{bold}
+{italic}
+{underline}
+{strike} or {strikethrough}
+
+{black}
+{red}
+{green}
+{yellow}
+{blue}
+{magenta}
+{cyan}
+{white}
+```
+
+### Variables
+Variables can be used in the `prompt` and `motd`.
+```
+%username% - The name of your user.
+%hostname% - The name of the computer.
+%cwd% - The current directory you are in.
+%cwf% - Name of the folder you are currently in.
+%ver% - ONLY FOR motd. Shows the version of Kanna.
+```

@@ -5,7 +5,7 @@
 
 Kanna is by default supposed to be a lightweight and quick shell that looks like other shells on Linux. It has custom prompts which provide variables for colors, username, hostname (computer name) and current working directory.
 
-It is still being developed but is currently very usable (if you don't mind missing tab for directories).
+It is still being developed but is currently very usable.
 
 # Screenshot
 Here is me using Kanna while developing it.
@@ -15,7 +15,7 @@ Here is me using Kanna while developing it.
 Kanna will (and currently has) a wide range of things you can customize and other things.
 
 ## Config
-A default `config.json` file is provided with default values. You can of course change this to your liking.  
+A default `.kannaconf.json` file is provided with default values, which is located in your user folder. You can of course change this to your liking.  
   
 `askOnExit` - Whether to ask for confirmation to exit with ctrl+c (Default: true)
 ### Colors

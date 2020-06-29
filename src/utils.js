@@ -15,49 +15,57 @@
 
 const os = require("os")
 const fs = require("fs")
-const { colorMap } = require("./colorMap.json")
+const Package = require("../package.json")
 const Path = require("./Path.js")
 
 class KannaUtils {
-  static getPrompt() {
-    const vals = {
-      "%username%": os.userInfo().username,
-      "%hostname%": os.hostname(),
-      "%cwd%": Path.handle(process.cwd()),
-      "%cwf%": Path.handle(process.cwd()).split("\\")[Path.handle(process.cwd()).split("\\").length - 1],
-      ...colorMap
-    }
-    let str = this.config().prompt
-    for(let key in vals) {
-        str = str.replace(new RegExp(key, "g"), vals[key])
-    }
-    return str
-  }
+	static get prompt() {
+		let str = this.config.prompt
+		for(let key in this.vars) {
+			str = str.replace(new RegExp(key, "g"), this.vars[key])
+		}
+    	return str
+	}
 
-  static displayMOTD() {
-    let motd = this.config().motd
-    if(!motd || motd === "") return;
-    const vals = {
-      "%username%": os.userInfo().username,
-      "%hostname%": os.hostname(),
-      "%cwd%": Path.handle(process.cwd()),
-      "%cwf%": Path.handle(process.cwd()).split("\\")[Path.handle(process.cwd()).split("\\").length - 1],
-      "%ver%": require("../package.json").version,
-      ...colorMap
-    }
-    for(let key in vals) {
-        motd = motd.replace(new RegExp(key, "g"), vals[key])
-    }
-    return console.log(motd + colorMap["{reset}"])
-  }
+	static displayMOTD() {
+		let motd = this.config.motd
+		if(!motd || motd === "") return;
+		for(let key in this.vars) {
+			motd = motd.replace(new RegExp(key, "g"), this.vars[key])
+		}
+		return console.log(motd + this.vars["{reset}"])
+	}
 
-  static config() {
-    if(require("fs").existsSync(`${os.userInfo().homedir}\\.kannaconf.json`)) {
-      return JSON.parse(require("fs").readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
-    } else {
-      return false;
-    }
-  }
+	static get config() {
+		if(fs.existsSync(`${os.userInfo().homedir}\\.kannaconf.json`)) {
+			return JSON.parse(fs.readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
+		} else {
+			return false;
+		}
+	}
+
+	static get vars() {
+		return {
+			"%username%": os.userInfo().username,
+			"%hostname%": os.hostname(),
+			"%cwd%": Path.handle(process.cwd()),
+			"%cwf%": Path.handle(process.cwd()).split("\\")[Path.handle(process.cwd()).split("\\").length - 1],
+			"%ver%": Package.version,
+			"{reset}": "\u001b[0m",
+			"{bold}": "\u001b[1m",
+			"{italic}": "\u001b[3m",
+			"{underline}": "\u001b[4m",
+			"{strike}|{strikethrough}": "\u001b[9m",
+			"{black}": "\u001b[30m",
+			"{red}": "\u001b[31m",
+			"{green}": "\u001b[32m",
+			"{yellow}": "\u001b[33m",
+			"{blue}": "\u001b[34m",
+			"{magenta}": "\u001b[35m",
+			"{cyan}": "\u001b[36m",
+			"{white}": "\u001b[37m"
+		}
+	}
 }
 
 module.exports = KannaUtils;

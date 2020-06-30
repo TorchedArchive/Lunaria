@@ -24,7 +24,7 @@ const utils = require("./src/utils.js")
 const Path = require("./src/Path.js")
 let commands = []
 
-if(!utils.config) fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannaconf.json`, JSON.stringify(require("baseConfig.json"), null, 4))
+if(!utils.config) fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannaconf.json`, JSON.stringify(require("./baseConfig.json"), null, 4))
 
 // Put available commands in an array.
 fs.readdirSync(__dirname + "/commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
@@ -60,11 +60,11 @@ ci.on("line", (input) => {
 	const argv = input.split(" ")
 	if(!commands.includes(argv[0])) {
 		try {
-			execSync(input, {
+			execSync(input.replace("#", ""), {
 				stdio: "inherit"
 			})
 		} catch(err) {
-			console.log(err.message)
+			if(err.status !== 1) console.log(err.message)
 		}
 	} else {
 		require(`./commands/${argv[0]}.js`).run(argv)

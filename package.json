@@ -1,6 +1,6 @@
 {
   "name": "kannashell",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A small, light terminal shell for Windows.",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "pkg": {
     "assets": [
       "src/**/*",
-      "bin/commands/**/*"
+      "commands/**/*"
     ]
   },
   "bin": {

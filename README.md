@@ -3,7 +3,7 @@
 </p>
 <strong><p align="center">Kanna is a small, light and great to use terminal shell for Windows.</p></strong>
 
-Kanna is by default supposed to be a lightweight and quick shell that looks like other shells on Linux. It has custom prompts which provide variables for colors, username, hostname (computer name) and current working directory.
+Kanna is a fast and lightweight shell for Windows that looks and acts like other shells on Linux. It has custom prompts which provide variables for colors, username, hostname (computer name) and current working directory.
 
 It is still being developed but is currently very usable.
 
@@ -17,7 +17,10 @@ Kanna will (and currently has) a wide range of things you can customize and othe
 ## Config
 A default `.kannaconf.json` file is provided with default values, which is located in your user folder. You can of course change this to your liking.  
   
-`askOnExit` - Whether to ask for confirmation to exit with ctrl+c (Default: true)
+`askOnExit` - Whether to ask for confirmation to exit with ctrl+c (Default: true)  
+`prompt` - your prompt (Default: `{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwd% ${reset}{bold}`, a nice looking prompt)
+`motd` - the message showed when kanna is started (Default: `{bold}Welcome {cyan}%username%{reset}{bold} to {cyan}KannaShell v%ver%!\n`, welcoming the user with the current version)  
+
 ### Colors
 Colors are available for the `prompt` and `motd`. There are also other formatting options.
 ```
@@ -38,7 +41,8 @@ Colors are available for the `prompt` and `motd`. There are also other formattin
 ```
 
 ### Variables
-Variables can be used in the `prompt` and `motd`.
+Variables can be used in the `prompt` and `motd`.  
+
 ```
 %username% - The name of your user.
 %hostname% - The name of the computer.

@@ -31,14 +31,17 @@ fs.readdirSync(__dirname + "/commands/").filter(c => c.endsWith('.js')).forEach(
 
 completer = (line) => {
 	line = line.split(" ").slice(line.split(" ").length - 1).join(" ")
-	const currAddedDir = (line.indexOf('\\') != - 1) ? line.substring(0, line.lastIndexOf('\\') + 1) : '';
-	const currAddingDir = line.substr(line.lastIndexOf('\\') + 1);
+	const currAddedDir = (line.indexOf("\\") != - 1) ? line.substring(0, line.lastIndexOf("\\") + 1) : "";
+	const currAddingDir = line.substr(line.lastIndexOf("\\") + 1);
 	const path = `${line.match(/^(~|\/)/) ? Path.reverseHandle(line.split("\\")[0]) : process.cwd()}\\${line.match(/^(~|\/)/) ? currAddedDir.slice(1) : currAddedDir}`;
-	const completions = fs.readdirSync(path, { withFileTypes: true }).filter(p => p.isDirectory()).map(d => d.name)
+	let completions = []
+	try {
+		completions = fs.readdirSync(path, { withFileTypes: true }).map(d => d.name)
+	} catch(e) {}
 	const hits = completions.filter(function(c) { return c.indexOf(currAddingDir) === 0});
 
 	let strike = [];
-	if (hits.length === 1) strike.push(currAddedDir + hits[0] + '\\');
+	if (hits.length === 1) strike.push(currAddedDir + hits[0] + "\\");
 
 	return (strike.length) ? [strike, line] : [hits.length ? hits : completions, line];
 }
@@ -55,6 +58,10 @@ prompt = () => {
 	ci.prompt()
 }
 
+// Shows the MOTD and draws the prompt initially.
+utils.displayMOTD()
+prompt()
+
 // Runs a command when Enter/Return is pressed.
 ci.on("line", (input) => {
 	const argv = input.split(" ")
@@ -67,16 +74,23 @@ ci.on("line", (input) => {
 			if(err.status !== 1) console.log(err.message)
 		}
 	} else {
-		require(`./commands/${argv[0]}.js`).run(argv)
+		const shortargs = argv.join("").split("-").slice(1).join("").split("")
+		const longargs = argv.join("").split("--").slice(1).map(t => t.trim().split(" "))
+		let options = {}
+		for(let i = 0; i < longargs.length; i++) {
+			options[longargs[i][0]] = longargs[i][1]
+			
+			if(!longargs[i][1]) options[longargs[i][0]] = true
+			if(longargs[i].length > 2) options[longargs[i][0]] = longargs[i].slice(1)
+		}
+		require(`./commands/${argv[0]}.js`).run(argv.filter(a => !a.startsWith("-") && !a.startsWith("--")), shortargs, options)
 	}
 	prompt()
 })
 
-// Shows the MOTD and draws the prompt initially.
-utils.displayMOTD()
-prompt()
 
-ci.on('SIGINT', () => {
+
+ci.on("SIGINT", () => {
 	if(!utils.config.askOnExit) {
 		ci.close()
 	} else {
@@ -88,7 +102,7 @@ ci.on('SIGINT', () => {
 	}
 });
 
-ci.on('close', () => {
+ci.on("close", () => {
 	console.log("Goodbye!")
 	process.exit(0)
 });

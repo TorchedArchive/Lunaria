@@ -19,7 +19,10 @@ const Package = require("../package.json")
 const Path = require("./Path.js")
 
 class KannaUtils {
+	static _config = false; // Where we will store the config for access instead of constantly reading the file.
+	static _prompt = false; // Same as above but for our prompt.
 	static get prompt() {
+		if(this._prompt) return this._prompt
 		let str = this.config.prompt
 		for(let key in this.vars) {
 			str = str.replace(new RegExp(key, "g"), this.vars[key])
@@ -36,9 +39,27 @@ class KannaUtils {
 		return console.log(motd + this.vars["{reset}"])
 	}
 
+	static refreshConfig() {
+		const config = JSON.parse(fs.readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
+		this._config = config
+		return true
+	}
+
+	static refreshPrompt() {
+		let prompt = this.config.prompt
+		for(let key in this.vars) {
+			prompt = prompt.replace(new RegExp(key, "g"), this.vars[key])
+		}
+		this._prompt = prompt
+		return true
+	}
+
 	static get config() {
+		if(this._config) return this._config;
 		if(fs.existsSync(`${os.userInfo().homedir}\\.kannaconf.json`)) {
-			return JSON.parse(fs.readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
+			const config = JSON.parse(fs.readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
+			this._config = config
+			return config
 		} else {
 			return false;
 		}

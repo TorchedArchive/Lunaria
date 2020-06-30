@@ -14,6 +14,11 @@ Here is me using Kanna while developing it.
 # Documentation
 Kanna will (and currently has) a wide range of things you can customize and other things.
 
+### Command Overrides 
+If you run a command that starts with `#`, it will run the command normally instead of the Kanna version of it. This works if a command name is occupied by our custom implementation of it.  
+Example: `ls` - this would run the Kanna version of the command.  
+`#ls` would run Windows' normal `ls` command.
+
 ## Config
 A default `.kannaconf.json` file is provided with default values, which is located in your user folder. You can of course change this to your liking.  
   

@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 /*
     Kanna, a small and light terminal shell for Windows.
     Copyright (C) 2020 Terminalfreaks
@@ -19,23 +20,17 @@
 const { execSync } = require("child_process")
 const readline = require("readline")
 const fs = require("fs")
-const utils = require("../src/utils.js")
-const Path = require("../src/Path.js")
+const utils = require("./src/utils.js")
+const Path = require("./src/Path.js")
 let commands = []
 
-const baseConfig = {
-	prompt: "{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwd% λ{reset}{bold} ",
-	motd: "{bold}Welcome {cyan}%username%{reset}{bold} to {cyan}KannaShell v%ver%!\n",
-	askOnExit: true
-}
-if(!utils.config()) fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannaconf.json`, JSON.stringify(baseConfig, null, 4))
+if(!utils.config) fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannaconf.json`, JSON.stringify(require("baseConfig.json"), null, 4))
 
 // Put available commands in an array.
 fs.readdirSync(__dirname + "/commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})
 
 completer = (line) => {
-	if(!line.includes("cd")) return;
-	line = line.slice(3)
+	line = line.split(" ").slice(line.split(" ").length - 1).join(" ")
 	const currAddedDir = (line.indexOf('\\') != - 1) ? line.substring(0, line.lastIndexOf('\\') + 1) : '';
 	const currAddingDir = line.substr(line.lastIndexOf('\\') + 1);
 	const path = `${line.match(/^(~|\/)/) ? Path.reverseHandle(line.split("\\")[0]) : process.cwd()}\\${line.match(/^(~|\/)/) ? currAddedDir.slice(1) : currAddedDir}`;
@@ -56,7 +51,7 @@ const ci = readline.createInterface({
 
 // Function to draw the prompt
 prompt = () => {
-	ci.setPrompt(utils.getPrompt())
+	ci.setPrompt(utils.prompt)
 	ci.prompt()
 }
 
@@ -82,7 +77,7 @@ utils.displayMOTD()
 prompt()
 
 ci.on('SIGINT', () => {
-	if(!utils.config().askOnExit) {
+	if(!utils.config.askOnExit) {
 		ci.close()
 	} else {
 		console.log("")

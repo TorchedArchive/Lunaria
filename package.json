@@ -1,8 +1,8 @@
 {
   "name": "kannashell",
-  "version": "0.0.20",
+  "version": "0.1.0",
   "description": "A small, light terminal shell for Windows.",
-  "main": "bin/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,5 +26,8 @@
       "src/**/*",
       "bin/commands/**/*"
     ]
+  },
+  "bin": {
+    "kannashell": "index.js"
   }
 }

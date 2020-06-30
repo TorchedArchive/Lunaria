@@ -18,7 +18,7 @@ Kanna will (and currently has) a wide range of things you can customize and othe
 A default `.kannaconf.json` file is provided with default values, which is located in your user folder. You can of course change this to your liking.  
   
 `askOnExit` - Whether to ask for confirmation to exit with ctrl+c (Default: true)  
-`prompt` - your prompt (Default: `{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwd% ${reset}{bold}`, a nice looking prompt)
+`prompt` - your prompt (Default: `{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwd% ${reset}{bold}`, a nice looking prompt)  
 `motd` - the message showed when kanna is started (Default: `{bold}Welcome {cyan}%username%{reset}{bold} to {cyan}KannaShell v%ver%!\n`, welcoming the user with the current version)  
 
 ### Colors

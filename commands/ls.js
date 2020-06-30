@@ -16,15 +16,17 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 const fs = require("fs")
-const os = require("os")
 const Path = require("../src/Path.js")
 
-exports.run = (args) => {
-	if(!args[1]) return process.chdir(os.userInfo().homedir)
+exports.run = (args, shortargs, longargs) => {
+	console.log(args)
+	if(!args[1]) args[1] = "."
+
 	const dir = args.slice(1).join(" ")
-	if(fs.existsSync(Path.reverseHandle(dir))) {
-		process.chdir(Path.reverseHandle(dir))
-	} else {
-		process.stdout.write("That directory does not exist.\n")
-	}
+	if(!fs.existsSync(Path.reverseHandle(dir))) return process.stdout.write("That directory does not exist.\n") 
+
+	fs.readdirSync(Path.reverseHandle(dir), { withFileTypes: true }).filter(f => shortargs.includes("a") || longargs.all ? f : !f.name.startsWith(".")).forEach(f => {
+		process.stdout.write(`${f.isDirectory() && (shortargs.includes("C") || longargs.color) ? "\u001b[34m" : "\u001b[0m"}${f.name}   `)
+	})
+	process.stdout.write("\n")
 }

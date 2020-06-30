@@ -1,7 +1,7 @@
 {
   "name": "kannashell",
-  "version": "0.1.2",
-  "description": "A small, light terminal shell for Windows.",
+  "version": "0.1.3",
+  "description": "A fast and lightweight shell for Windows",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

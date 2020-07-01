@@ -24,7 +24,11 @@ const utils = require("./src/utils.js")
 const Path = require("./src/Path.js")
 let commands = []
 
-if(!utils.config) fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannaconf.json`, JSON.stringify(require("./baseConfig.json"), null, 4))
+if(!utils.config) {
+	fs.appendFileSync(`${require("os").userInfo().homedir}\\.kannaconf.json`, JSON.stringify(require("./baseConfig.json"), null, 4))
+} else if(utils.config.error) {
+	process.stdout.write("Your config was invalid. Check it for syntax errors.\nUsing default/base config.\n\n")
+}
 
 // Put available commands in an array.
 fs.readdirSync(__dirname + "/commands/").filter(c => c.endsWith('.js')).forEach(c => {commands.push(c.slice(0, -3))})

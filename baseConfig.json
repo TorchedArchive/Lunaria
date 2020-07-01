@@ -1,5 +1,6 @@
 {
 	"prompt": "{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwd% ${reset}{bold} ",
 	"motd": "{bold}Welcome {cyan}%username%{reset}{bold} to {cyan}KannaShell v%ver%!\n",
-	"askOnExit": true
+	"askOnExit": true,
+	"aliases": {}
 }

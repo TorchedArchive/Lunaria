@@ -40,9 +40,22 @@ class KannaUtils {
 	}
 
 	static refreshConfig() {
-		const config = JSON.parse(fs.readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
-		this._config = config
-		return true
+		try {
+			const config = JSON.parse(fs.readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
+			this._config = config
+			return true
+		} catch(err) {
+			try {
+				const config = JSON.parse(fs.readFileSync(`${__dirname}\\..\\baseConfig.json`))
+				this._config = {
+					error: true,
+					...config
+				}
+				return {error: true}
+			} catch(_) {
+				throw new Error("Your config is invalid, and the base config has been changed to also be invalid. Fix the \"baseConfig.json\" or your own.")
+			}
+		}
 	}
 
 	static refreshPrompt() {
@@ -57,9 +70,22 @@ class KannaUtils {
 	static get config() {
 		if(this._config) return this._config;
 		if(fs.existsSync(`${os.userInfo().homedir}\\.kannaconf.json`)) {
-			const config = JSON.parse(fs.readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
-			this._config = config
-			return config
+			try {
+				const config = JSON.parse(fs.readFileSync(`${os.userInfo().homedir}\\.kannaconf.json`))
+				this._config = config
+				return config
+			} catch(err) {
+				try {
+					const config = JSON.parse(fs.readFileSync(`${__dirname}\\..\\baseConfig.json`))
+					this._config = {
+						error: true,
+						...config
+					}
+					return this._config
+				} catch(_) {
+					throw new Error("Your config is invalid, and the base config has been changed to also be invalid. Fix the \"baseConfig.json\" or your own.")
+				}
+			}
 		} else {
 			return false;
 		}

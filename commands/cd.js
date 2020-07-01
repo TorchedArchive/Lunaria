@@ -25,6 +25,6 @@ exports.run = (args) => {
 	if(fs.existsSync(Path.reverseHandle(dir))) {
 		process.chdir(Path.reverseHandle(dir))
 	} else {
-		process.stdout.write("That directory does not exist.\n")
+		process.stdout.write("cd: directory does not exist\n")
 	}
 }

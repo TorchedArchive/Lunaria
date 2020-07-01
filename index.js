@@ -45,7 +45,10 @@ completer = (line) => {
 	const hits = completions.filter(function(c) { return c.indexOf(currAddingDir) === 0});
 
 	let strike = [];
-	if (hits.length === 1) strike.push(currAddedDir + hits[0] + "\\");
+	if (hits.length === 1) {
+		const isfile = fs.lstatSync(`${currAddedDir}${hits[0]}`).isFile()
+		strike.push(`${currAddedDir}${hits[0]}${isfile ? "" : "\\"}`);
+	}
 
 	return (strike.length) ? [strike, line] : [hits.length ? hits : completions, line];
 }

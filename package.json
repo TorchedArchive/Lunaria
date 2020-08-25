@@ -1,33 +1,37 @@
 {
-  "name": "kannashell",
-  "version": "0.1.4",
+  "name": "lunaria",
+  "version": "0.1.5",
   "description": "A fast and lightweight shell for Windows",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Terminalfreaks/Kanna.git"
+    "url": "git+https://github.com/Luvella/Lunaria.git"
   },
   "keywords": [
     "shell",
     "terminal"
   ],
-  "author": "Terminalfreaks",
-  "license": "GPL-3.0",
+  "author": "Lunaria",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Terminalfreaks/Kanna/issues"
+    "url": "https://github.com/Luvella/Lunaria/issues"
   },
-  "homepage": "https://github.com/Terminalfreaks/Kanna#readme",
+  "homepage": "https://github.com/Luvella/Lunaria#readme",
   "dependencies": {},
   "pkg": {
     "assets": [
       "src/**/*",
+      "lib/**/*",
       "commands/**/*"
     ]
   },
   "bin": {
-    "kannashell": "index.js"
+    "lunaria": "src/index.js"
+  },
+  "devDependencies": {
+    "pkg": "^4.4.9"
   }
 }

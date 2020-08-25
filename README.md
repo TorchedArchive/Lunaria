@@ -1,30 +1,39 @@
 <p align="center">
-	<img src="https://cdn.discordapp.com/attachments/713498715658125363/716253680600350720/kannashell.png">
+	<img src="https://cdn.discordapp.com/attachments/524558580419133480/747815676760162415/lunaria.png" width=256>
+	<br>
+	<strong>Lunaria is a simple, fast and lightweight terminal shell for Windows.</strong>
 </p>
-<strong><p align="center">Kanna is a small, light and great to use terminal shell for Windows.</p></strong>
 
-Kanna is a fast and lightweight shell for Windows that looks and acts like other shells on Linux. It has custom prompts which provide variables for colors, username, hostname (computer name) and current working directory.
-
+Its goal is to be quick and elegant, while also having the feel and look of a Linux shell.  
+Lunaria provides: prompt and message of the day customization, extensibility (custom commands) and more to come.
 It is still being developed but is currently very usable.
 
 # Screenshot
-Here is me using Kanna while developing it.
-![Preview](https://cdn.discordapp.com/attachments/713499232803225662/716259579327152148/kannashellusage.png)
+![](https://modeus.is-inside.me/4pQGrNHg.png)  
+![](https://modeus.is-inside.me/C9zTGqWf.png)
 
-# Documentation
-Kanna will (and currently has) a wide range of things you can customize and other things.
+# Installation
+[A packaged binary is provided](https://github.com/Luvella/Lunaria/releases) if you don't have Node.js, or want easy usage.  
 
-### Command Overrides 
-If you run a command that starts with `#`, it will run the command normally instead of the Kanna version of it. This works if a command name is occupied by our custom implementation of it.  
-Example: `ls` - this would run the Kanna version of the command.  
-`#ls` would run Windows' normal `ls` command.
+```
+git clone https://github.com/Luvella/Lunaria
+cd Lunaria
+npm link
+```
+
+## Tagged Overrides 
+Running a command with `#` at the beginning will run the Windows provided version instead of Lunaria's custom implementation.
+Example: `ls` - This runs our implementation.  
+`#ls` - would run Windows' normal `ls` command.
 
 ## Config
-A default `.kannaconf.json` file is provided with default values, which is located in your user folder. You can of course change this to your liking.  
-  
+The config file is located in the `Lunaria` folder in your user folder (Example: `C:\Users\person\Lunaria`). The file is `conf.json`.  
+This is also where custom commands can go, in the Commands directory (`C:\Users\person\Lunaria\Commands`)
+
+#### Values for conf.json
 `askOnExit` - Whether to ask for confirmation to exit with ctrl+c (Default: true)  
-`prompt` - your prompt (Default: `{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwd% ${reset}{bold}`, a nice looking prompt)  
-`motd` - the message showed when kanna is started (Default: `{bold}Welcome {cyan}%username%{reset}{bold} to {cyan}KannaShell v%ver%!\n`, welcoming the user with the current version)  
+`prompt` - Your prompt (Default: ![](https://modeus.is-inside.me/9wdDPoyb.png))
+`motd` - The message showed when Lunaria is started (Default: ![](https://modeus.is-inside.me/0sNWdwhy.png))  
 
 ### Colors
 Colors are available for the `prompt` and `motd`. There are also other formatting options.
@@ -53,5 +62,5 @@ Variables can be used in the `prompt` and `motd`.
 %hostname% - The name of the computer.
 %cwd% - The current directory you are in.
 %cwf% - Name of the folder you are currently in.
-%ver% - ONLY FOR motd. Shows the version of Kanna.
+%ver% - Shows the version of Lunaria.
 ```

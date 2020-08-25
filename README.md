@@ -3,9 +3,9 @@
 	<br>
 	<strong>Lunaria is a simple, fast and lightweight terminal shell for Windows.</strong>
 
-	Its goal is to be quick and elegant, while also having the feel and look of a Linux shell.  
-	Lunaria provides: prompt and message of the day customization, extensibility (custom commands) and more to come.
-	It is still being developed but is currently very usable.
+Its goal is to be quick and elegant, while also having the feel and look of a Linux shell.  
+Lunaria provides: prompt and message of the day customization, extensibility (custom commands) and more to come.
+It is still being developed but is currently very usable.
 </p>
 
 # Screenshots

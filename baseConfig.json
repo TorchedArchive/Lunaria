@@ -1,6 +1,5 @@
 {
-	"prompt": "{bold}→ {green}%username%@%hostname%{reset} {bold}{blue}%cwd% ${reset}{bold} ",
-	"motd": "{bold}Welcome {cyan}%username%{reset}{bold} to {cyan}KannaShell v%ver%!\n",
-	"askOnExit": true,
+	"prompt": "{bold}→ {cyan}%username%@%hostname%{reset} {bold}{blue}%cwd% ${reset}{bold} ",
+	"motd": "{bold} Welcome {cyan}%username%{reset}{bold} to {cyan}Lunaria v%ver%!\n",
 	"aliases": {}
 }

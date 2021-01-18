@@ -1,11 +1,9 @@
-<p align="center">
-	<img src="https://cdn.discordapp.com/attachments/524558580419133480/747815676760162415/lunaria.png" width=256>
-	<br>
-	<strong>Lunaria is a simple, fast and lightweight terminal shell for Windows.</strong>
+This is the legacy version of Lunaria that is made in JavaScript with Node.js. For the new version, check the Hilbis organization.  
+
+<strong>Lunaria is a simple, fast and lightweight terminal shell for Windows.</strong>
 
 Its goal is to be quick and elegant, while also having the feel and look of a Linux shell.  
 Lunaria provides: prompt and message of the day customization, extensibility (custom commands) and more to come.
-It is still being developed but is currently very usable.
 </p>
 
 # Screenshots

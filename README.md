@@ -1,4 +1,4 @@
-This is the legacy version of Lunaria that is made in JavaScript with Node.js. For the new version, check the Hilbis organization.  
+This is the legacy version of Lunaria that is made in JavaScript with Node.js. For a new and cool shell made in Go, look at [Hilbish](https://github.com/Hilbis/Hilbish)  
 
 <strong>Lunaria is a simple, fast and lightweight terminal shell for Windows.</strong>
 

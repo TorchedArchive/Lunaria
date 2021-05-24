@@ -1,4 +1,4 @@
-This is the legacy version of Lunaria that is made in JavaScript with Node.js. For a new and cool shell made in Go, look at [Hilbish](https://github.com/Hilbis/Hilbish)  
+This is the legacy version of Lunaria that is made in JavaScript with Node.js. For a new and cool shell made in Go, look at [Hilbish](https://github.com/Mewyuna/Hilbish)  
 
 <strong>Lunaria is a simple, fast and lightweight terminal shell for Windows.</strong>
 
@@ -11,7 +11,7 @@ Lunaria provides: prompt and message of the day customization, extensibility (cu
 ![](https://modeus.is-inside.me/C9zTGqWf.png)
 
 # Installation
-[A packaged binary is provided](https://github.com/Luvella/Lunaria/releases) if you don't have Node.js, or want easy usage.  
+[A packaged binary is provided](https://github.com/Torchedgarbage/Lunaria/releases) if you don't have Node.js, or want easy usage.  
 Otherwise:
 ```
 git clone https://github.com/Luvella/Lunaria
